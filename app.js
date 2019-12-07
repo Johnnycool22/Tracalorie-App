@@ -36,7 +36,10 @@ const ItemCtrl = (function() {
 // UI Controller
 const UICtrl = (function() {
   const UISelectors = {
-    itemList: '#item-list'
+    itemList: '#item-list',
+    addBtn: '.add-btn',
+    itemNameInput: '#item-name',
+    itemCaloriesInput: '#item-calories'
   }
 
   // Public methods
@@ -56,6 +59,12 @@ const UICtrl = (function() {
       // Insert list items
       document.querySelector(UISelectors.itemList).innerHTML = html;
     },
+    getItemInput: function() {
+      return {
+        name: document.querySelector(UISelectors.itemNameInput).value,
+        calories: document.querySelector(UISelectors.itemCaloriesInput).value
+      }
+    },
     getSelectors: function() {
       return UISelectors;
     }
@@ -68,8 +77,21 @@ const UICtrl = (function() {
 const App = (function(ItemCtrl, UICtrl) {
   // Load event listeners
   const loadEventListeners = function() {
-    // Get UI Selectors 
+    // Get UI selectors 
     const UISelectors = UICtrl.getSelectors();
+
+    // Add item event 
+    document.querySelector(UISelectors.addBtn).addEventListener('click', itemAddSubmit);
+  }
+
+  // Add item submit
+  const itemAddSubmit = function(e) {
+    // Get form input from UI Controller
+    const input = UICtrl.getItemInput();
+
+    console.log(input);
+
+    e.preventDefault();
   }
 
   // Public methods
@@ -81,6 +103,9 @@ const App = (function(ItemCtrl, UICtrl) {
 
       // Populate list with items
       UICtrl.populateItemList(items);
+
+      // Load event listeners
+      loadEventListeners();
       
     }
   }
