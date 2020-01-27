@@ -61,7 +61,7 @@ const ItemCtrl = (function() {
 
       let found = null;
 
-      data.items.forEach(function() {
+      data.items.forEach(function(item) {
         if(item.id === data.currentItem.id) {
           item.name = name;
           item.calories = calories;
@@ -161,7 +161,7 @@ const UICtrl = (function() {
 
         if(itemID === `item-${item.id}`) {
           document.querySelector(`#${itemID}`).innerHTML = `<strong>${item.name}: </strong><em>${item.calories} Calories</em>
-          <a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i></a>` ;
+          <a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i></a>`;
         }
       });
     },
@@ -270,13 +270,13 @@ const App = (function(ItemCtrl, UICtrl) {
     e.preventDefault();
   }
 
-  // Update item submit
-  const itemUpdateSubmit = function(e) {
+    // Update item submit
+    const itemUpdateSubmit = function(e) {
     // Get item input
     const input = UICtrl.getItemInput();
 
     // Update item
-const updatedItem = ItemCtrl.updatedItem(input.name, input.calories);
+    const updatedItem = ItemCtrl.updatedItem(input.name, input.calories);
 
     // Update UI
     UICtrl.updateListItem(updatedItem);
